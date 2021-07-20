@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>day03 | Hexo</title>
+  <meta name="description" content="方法的重载(@overload) 前提:  重载的方法是存在于同一个类中 [前提] 重载的方法的方法名必须相同 重载的方法的参数列表必须不相同 重载的方法的返回类型可以不一样,可以一样  1234567891011121314public class LoadMethodDemo &amp;#123;    public static void main(String[] args) &amp;#123;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="day03">
+<meta property="og:url" content="http://example.com/2021/07/20/day03/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="方法的重载(@overload) 前提:  重载的方法是存在于同一个类中 [前提] 重载的方法的方法名必须相同 重载的方法的参数列表必须不相同 重载的方法的返回类型可以不一样,可以一样  1234567891011121314public class LoadMethodDemo &amp;#123;    public static void main(String[] args) &amp;#123;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-07-20T10:53:36.000Z">
+<meta property="article:modified_time" content="2021-07-20T10:59:32.006Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="java">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://example.com/2021/07/20/day03/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/cofess" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">xuzeyi</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">程序猿</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Suzhou, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/cofess" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/cofess" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/iwebued" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.behance.net/cofess" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/base/">base</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jqxx/">jqxx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tools/">tools</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/base/" rel="tag">base</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jqxx/" rel="tag">jqxx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tools/" rel="tag">tools</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/base/" style="font-size: 14px;">base</a> <a href="/tags/java/" style="font-size: 14px;">java</a> <a href="/tags/jqxx/" style="font-size: 13px;">jqxx</a> <a href="/tags/python/" style="font-size: 13px;">python</a> <a href="/tags/tools/" style="font-size: 13px;">tools</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">8</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/base/">base</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/07/20/day03/" class="title">day03</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-07-20T10:53:36.000Z" itemprop="datePublished">2021-07-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/java/">java</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/07/16/day02/" class="title">day02</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-07-16T11:42:19.000Z" itemprop="datePublished">2021-07-16</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/java/">java</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/07/15/day01/" class="title">day01</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-07-15T11:55:53.000Z" itemprop="datePublished">2021-07-15</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/tools/">tools</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/07/13/hexo-1/" class="title">hexo-1</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-07-13T07:13:13.000Z" itemprop="datePublished">2021-07-13</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/jqxx/">jqxx</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/07/13/jqxx/" class="title">jqxx</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-07-13T01:38:38.000Z" itemprop="datePublished">2021-07-13</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-day03" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      day03
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/07/20/day03/" class="article-date">
+	  <time datetime="2021-07-20T10:53:36.000Z" itemprop="datePublished">2021-07-20</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/base/">base</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/java/" rel="tag">java</a>
+  </span>
+
+
+        
+
+	<span class="article-read hidden-xs">
+    	<i class="icon icon-eye-fill" aria-hidden="true"></i>
+    	<span id="/2021/07/20/day03/" class="leancloud_visitors"  data-flag-title="day03">
+			<span class="leancloud-visitors-count">0</span>
+		</span>
+    </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/07/20/day03/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2.9k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 12(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="方法的重载-overload"><a href="#方法的重载-overload" class="headerlink" title="方法的重载(@overload)"></a>方法的重载(@overload)</h1><blockquote>
+<p>前提:</p>
+<ol>
+<li>重载的方法是存在于同一个类中 [前提]</li>
+<li>重载的方法的方法名必须相同</li>
+<li>重载的方法的参数列表必须不相同</li>
+<li>重载的方法的返回类型可以不一样,可以一样</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public class LoadMethodDemo &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        add(20);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static int add()&#123;</span><br><span class="line">        System.out.println(&quot;add -&gt; 100&quot;);</span><br><span class="line">        return 100;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void add(int i)&#123;</span><br><span class="line">        System.out.println(i);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p><strong>优点就是简化api - 方便调用的.</strong></p>
+</blockquote>
+<h1 id="学会使用api"><a href="#学会使用api" class="headerlink" title="学会使用api"></a>学会使用api</h1><blockquote>
+<p>通过学习java.lang.Math - 数学工具类 - 提供了很多关于数学计算的方式.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">package tech.aistar.day03;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 本类用来演示: java.lang.Math</span><br><span class="line"> *</span><br><span class="line"> * @author: success</span><br><span class="line"> * @date: 2021/7/19 8:59 上午</span><br><span class="line"> */</span><br><span class="line">public class MathDemo &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        //绝对值</span><br><span class="line">        int n = Math.abs(-10);</span><br><span class="line">        System.out.println(n);</span><br><span class="line"></span><br><span class="line">        //求随机数 - 伪随机的</span><br><span class="line">        //static double random();//[0.0,1.0)之间的随机小数</span><br><span class="line">        System.out.println(Math.random());</span><br><span class="line"></span><br><span class="line">        //[1,100]之间随机的整数</span><br><span class="line">        int result = (int) (Math.random()*100+1);//[1,100]</span><br><span class="line">        System.out.println(result);</span><br><span class="line"></span><br><span class="line">        //[3,5]之间的随机整数</span><br><span class="line">        int m = (int) (Math.random()*3+3);</span><br><span class="line">        System.out.println(m);</span><br><span class="line"></span><br><span class="line">        //求俩个数中的最大值/最小值</span><br><span class="line">        System.out.println(Math.max(10,20));//20</span><br><span class="line"></span><br><span class="line">        //笔试填空题 -</span><br><span class="line">        //返回小于或等于参数的最大（最接近正无穷大） double值，等于一个数学整数。</span><br><span class="line">        //floor方法.</span><br><span class="line"></span><br><span class="line">        System.out.println(Math.floor(3.5));//3.0</span><br><span class="line">        System.out.println(Math.floor(4.0));//4.0</span><br><span class="line"></span><br><span class="line">        System.out.println(Math.floor(-3.5));//-4.0</span><br><span class="line"></span><br><span class="line">        //返回参数中最接近的 long ，其中 long四舍五入为正无穷大。</span><br><span class="line"></span><br><span class="line">        //Math.floor(a + 1/2)</span><br><span class="line">        System.out.println(Math.round(-3.5));</span><br><span class="line"></span><br><span class="line">        //开根</span><br><span class="line">        System.out.println(Math.sqrt(9));//3.0</span><br><span class="line"></span><br><span class="line">        //次方</span><br><span class="line">        System.out.println((int)Math.pow(2,3));//8</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h1 id="语句"><a href="#语句" class="headerlink" title="语句"></a>语句</h1><h2 id="三元操作符"><a href="#三元操作符" class="headerlink" title="三元操作符"></a>三元操作符</h2><blockquote>
+<p>三目运算符</p>
+<ol>
+<li><p>条件表达式 ? result1 : result2</p>
+<p>表达式为true,结果就是result1,否则结果是result2</p>
+</li>
+<li><p>支持无限嵌套的 - 但是不推荐,可读性差</p>
+<p>m ? (表达式?result1:result2):result2</p>
+</li>
+</ol>
+</blockquote>
+<h2 id="if…else"><a href="#if…else" class="headerlink" title="if…else.."></a>if…else..</h2><blockquote>
+<ol>
+<li><p>if语句单独使用场景</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if(条件)&#123;//成立</span><br><span class="line">  //code...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>{}可以省略的场景</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if(条件)</span><br><span class="line">  //code...</span><br><span class="line">  </span><br><span class="line">如果if&#123;&#125;中的代码只有1行,那么&#123;&#125;可以省略,但是一定要缩进</span><br></pre></td></tr></table></figure></li>
+<li><p>if…else…使用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">if(条件)&#123;</span><br><span class="line">  //条件成立</span><br><span class="line">&#125;else&#123;</span><br><span class="line">  //条件不成立</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//如果语句仍然只有一行,&#123;&#125;还是可以省略的</span><br><span class="line">if(条件)</span><br><span class="line">  //code</span><br><span class="line">else</span><br><span class="line">  //code..</span><br></pre></td></tr></table></figure></li>
+<li><p>多条件分支if…else if…else..if … else…</p>
+<p><strong>注意条件是互斥的</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">if(条件)&#123;</span><br><span class="line">  //条件成立</span><br><span class="line">&#125;else if(条件)&#123;</span><br><span class="line">  //条件不成立</span><br><span class="line">&#125;else if(条件)&#123;</span><br><span class="line">  //code</span><br><span class="line">&#125;else&#123;</span><br><span class="line">   //code..</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>if..else语句可以无限嵌套使用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">if(条件)&#123;</span><br><span class="line">  //条件成立</span><br><span class="line">  if(条件)&#123;</span><br><span class="line">                </span><br><span class="line">  &#125;else&#123;</span><br><span class="line">                </span><br><span class="line">  &#125;</span><br><span class="line">&#125;else if(条件)&#123;</span><br><span class="line">  //条件不成立</span><br><span class="line">  if(条件)&#123;</span><br><span class="line">  //条件成立</span><br><span class="line">    &#125;else if(条件)&#123;</span><br><span class="line">      //条件不成立</span><br><span class="line">    &#125;else if(条件)&#123;</span><br><span class="line">      //code</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">       //code..</span><br><span class="line">    &#125;</span><br><span class="line">&#125;else if(条件)&#123;</span><br><span class="line">  //code</span><br><span class="line">&#125;else&#123;</span><br><span class="line">   //code..</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+</blockquote>
+<h3 id="习题"><a href="#习题" class="headerlink" title="习题"></a>习题</h3><blockquote>
+<ol>
+<li><p>买奶茶,每第二杯半价,单价是10元.求总价.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">10 5 10 5 10</span><br></pre></td></tr></table></figure></li>
+</ol>
+</blockquote>
+<blockquote>
+<ol>
+<li>求某年某月最大天数</li>
+</ol>
+</blockquote>
+<h2 id="switch-case"><a href="#switch-case" class="headerlink" title="switch..case"></a>switch..case</h2><blockquote>
+<p>没有if..else if..else灵活</p>
+<p>语法:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">switch(变量)/ /byte short int char String enum[枚举类型]</span><br><span class="line">    		//包装类型Byte Short Integer Character</span><br><span class="line">  case 值1:</span><br><span class="line">    //code</span><br><span class="line">    [break];</span><br><span class="line">  case 值2:</span><br><span class="line">    //code</span><br><span class="line">    [break];</span><br><span class="line">    </span><br><span class="line">  case 值3:</span><br><span class="line">    //code</span><br><span class="line">    [break];</span><br><span class="line">    </span><br><span class="line">  [default:</span><br><span class="line">    //code..</span><br><span class="line">    [break];]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p>当switch括号中的变量能够匹配到某个case后面的值的时候,那么就会进入到对应的case中去执行里面的程序</p>
+</li>
+<li><p>进入到某个case块中执行的过程中,只有遇到break语句才会跳出switch块.如果没有遇到break语句,那么程序会</p>
+<p>自动进入到下一个case块中去执行.</p>
+</li>
+<li><p>default语句可以省略,也是可以随便放的,推荐放在末尾.如果switch括号中的变量没有匹配到任何的case后面的值</p>
+<p>的时候,那么就会进入到default</p>
+</li>
+</ol>
+</blockquote>
+<h1 id="循环语句"><a href="#循环语句" class="headerlink" title="循环语句"></a>循环语句</h1><h2 id="while"><a href="#while" class="headerlink" title="while"></a>while</h2><blockquote>
+<ol>
+<li>属于后置循环 - 先判断循环条件是否成立,如果成立,则进入到循环体中,否则不执行循环.</li>
+<li>使用场景:当不知道循环多少次,但是知道循环退出的条件的时候 - 优先选择while循环.</li>
+</ol>
+<p>语法:</p>
+<p>while(条件){</p>
+<p> // 循环体…</p>
+<p>}</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">package tech.aistar.day03;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 本类用来演示: while循环</span><br><span class="line"> *</span><br><span class="line"> * @author: success</span><br><span class="line"> * @date: 2021/7/19 10:53 上午</span><br><span class="line"> */</span><br><span class="line">public class WhileDemo &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        //while可以代替for的使用</span><br><span class="line">        //&#x27;a&#x27;-&#x27;z&#x27;</span><br><span class="line">        char c = &#x27;a&#x27;;</span><br><span class="line">        while(c &lt;= &#x27;z&#x27;)&#123;</span><br><span class="line">            System.out.println(c);</span><br><span class="line">            c++;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(&quot;=====&quot;);</span><br><span class="line">        //&#x27;A&#x27; - &#x27;Z&#x27;</span><br><span class="line">        int n = 65;</span><br><span class="line">        while(n&lt;=90)&#123;//退出的条件</span><br><span class="line">            System.out.println((char)n);</span><br><span class="line">            n++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        //1-10</span><br><span class="line">        int m = 1;</span><br><span class="line">        //死循环...</span><br><span class="line">        while(true)&#123;</span><br><span class="line">            //死循环的内部一定要有打破循环的语句 - break</span><br><span class="line">            System.out.println(m);</span><br><span class="line">            if(m==10) // 循环退出的条件</span><br><span class="line">                break;</span><br><span class="line">            m++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h3><blockquote>
+<ol>
+<li><p>求俩个数的最大公约数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">思路:20 12 -&gt; 4</span><br><span class="line">    </span><br><span class="line">    20 % 12 = 8</span><br><span class="line">    12 % 8 = 4</span><br><span class="line">    8  % 4 = 0    </span><br></pre></td></tr></table></figure></li>
+<li><p>十进制转换二进制</p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> </span><br></pre></td></tr></table></figure>
+</blockquote>
+<h2 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h2><blockquote>
+<p>属于后置循环</p>
+</blockquote>
+<blockquote>
+<ol>
+<li><p>单层for</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">for(①表达式1;②表达式2;③表达式3)&#123;</span><br><span class="line">  //④循环体</span><br><span class="line">&#125;</span><br><span class="line">①表达式1 - 循环过程中的变量的初始化操作.比如int i = 0;</span><br><span class="line">        -  仅仅只会执行1次.</span><br><span class="line">②表达式2 - 循环退出的条件.比如 i&lt;=10 </span><br><span class="line">         - 至少执行1次</span><br><span class="line">③表达式3 - 循环过程中,变量因子的变化.i++</span><br><span class="line">         - 有可能是不执行,可能执行</span><br><span class="line">          </span><br><span class="line">执行顺序①-②[成立]-④-③-②[成立]-④-③.....</span><br></pre></td></tr></table></figure>
+
+<p><code>怪异的写法</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for(;;)&#123;</span><br><span class="line">  //死循环 - break打破循环的语句</span><br><span class="line">&#125;</span><br><span class="line">三个表达式都是可以任意的省略不写,或者写到其他地方</span><br></pre></td></tr></table></figure>
+
+<p><code>for循环的复合形态</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for(同时定义若干个变量;条件;表达式)&#123;</span><br><span class="line">  //循环体...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>嵌套for循环,嵌套的层数不建议超过三层.嵌套越多,性能越低.</p>
+<p>2-1. 内外层无关 - 里面的for选中的使用可以单独执行.没有使用到外面for的循环的变量因子的.</p>
+<p>2-2. 内外层相关 - 里面的for使用到了外面for循环的变量因子的</p>
+</li>
+<li><p><strong>练习 - 打印所有的三位数.三位数由数字1,2,3,4组成.但是不能出现重复的.</strong></p>
+<p><strong>每打印4个换一行</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">package tech.aistar.day03;</span><br><span class="line">         </span><br><span class="line">/**</span><br><span class="line"> * 本类用来演示:</span><br><span class="line"> * 练习 - 打印所有的三位数.三位数由数字1,2,3,4组成.但是不能出现重复的.</span><br><span class="line"> *</span><br><span class="line"> * 每打印4个换一行</span><br><span class="line"> *</span><br><span class="line"> * @author: success</span><br><span class="line"> * @date: 2021/7/19 2:26 下午</span><br><span class="line"> */</span><br><span class="line">public class ForExerciseDemo &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        //定义一个计数器</span><br><span class="line">        int count = 0;</span><br><span class="line">        for (int x = 1; x &lt;=4 ; x++) &#123;</span><br><span class="line">            for (int y = 1; y &lt;=4; y++) &#123;</span><br><span class="line">                for (int z = 1; z &lt;=4; z++) &#123;</span><br><span class="line">//                    System.out.print(x+&quot;&quot;+y+z);</span><br><span class="line">                    if(x!=y &amp; x!=z &amp; y!=z)&#123;</span><br><span class="line">                        System.out.print(x*100+y*10+z+&quot;\t&quot;);</span><br><span class="line">                        count++;</span><br><span class="line">//                        if(count % 4==0)&#123;</span><br><span class="line">//                            System.out.println();</span><br><span class="line">//                        &#125;</span><br><span class="line">         </span><br><span class="line">                        if(count == 4)&#123;</span><br><span class="line">                            System.out.println();</span><br><span class="line">                            count = 0;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">         </span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+</blockquote>
+<h2 id="do-while"><a href="#do-while" class="headerlink" title="do..while.."></a>do..while..</h2><blockquote>
+<p>属于前置循环 - 无论循环条件是否成立,优先先进入到循环体中执行一次.</p>
+<p>然后再进行判断条件,决定下一次是否再次进入.</p>
+<p>do{</p>
+<p>//循环体…</p>
+<p>}while(条件);</p>
+</blockquote>
+<h1 id="break语句"><a href="#break语句" class="headerlink" title="break语句"></a>break语句</h1><blockquote>
+<ol>
+<li>break可以跳出swtich块</li>
+<li>break可以打破它所在的那一层循环</li>
+</ol>
+</blockquote>
+<h1 id="continue语句"><a href="#continue语句" class="headerlink" title="continue语句"></a>continue语句</h1><blockquote>
+<p>出现在循环体中</p>
+<p>跳过本轮循环,继续执行下一轮循环.</p>
+</blockquote>
+<h1 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h1><blockquote>
+<ol>
+<li>数组的诞生 - 为了解决单个变量只能存储单个值的缺点.</li>
+<li>数组本身也是属于数据结构[数组,栈,堆,树[红黑树],链表,图…]</li>
+<li>数组是属于对象类型,数组是存在在JVM内存的堆区,基本类型存储在JVM内存的栈区</li>
+<li>数组在内存中一定是一块连续的空间.</li>
+<li><strong>数组的大小[长度,数组中存放的数据的个数]一旦确定了,不能改变.</strong></li>
+<li>定义数组必不可少的俩个条件 - 元素类型/数组的长度要确定</li>
+<li>数组容器</li>
+</ol>
+</blockquote>
+<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">1. 元素类型[] 变量名 = new 元素类型[size];//size数组的大小</span><br><span class="line">2. 元素类型 变量名[] = new 元素类型[size];//</span><br><span class="line"></span><br><span class="line">元素类型就是数据类型[8种基本数据类型,以及对象类型]</span><br><span class="line">作用 - 元素类型决定了这个数组中可以存放的数据的类型</span><br><span class="line"></span><br><span class="line">//arr的数据类型是什么?int[] -&gt; 整数型数组</span><br><span class="line">// &quot;定义一个长度为3的int型数组&quot;</span><br><span class="line">int[] arr = new int[3];</span><br></pre></td></tr></table></figure>
+
+<h2 id="赋值方式"><a href="#赋值方式" class="headerlink" title="赋值方式"></a>赋值方式</h2><blockquote>
+<p>如果定义了数组,但是没有进行赋值操作,那么系统会默认分配一个默认值</p>
+<p>默认值根据元素类型来决定了.</p>
+<p>byte,short,int,long -&gt; 0</p>
+<p>float,double -&gt; 0.0</p>
+<p>boolean -&gt; false</p>
+<p>char -&gt; 空格</p>
+<p>对象类型 -&gt; null</p>
+</blockquote>
+<blockquote>
+<ol>
+<li><p>先定义数组,然后通过下标一一赋值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">int[] arr = new int[3];</span><br><span class="line">//数组的下标从[0,数组长度-1]范围</span><br><span class="line">//如果下标不在此范围,控制台抛出java.lang.ArrayIndexOutOfBoundsException 数组下标越界异常</span><br><span class="line">arr[0] = 10;</span><br><span class="line">arr[1] = 10;</span><br><span class="line">arr[2] = 10;</span><br></pre></td></tr></table></figure></li>
+</ol>
+</blockquote>
+<blockquote>
+<ol>
+<li><p>定义数组的同时进行赋值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int[] arr = &#123;3,4,5&#125;;</span><br></pre></td></tr></table></figure></li>
+<li><p>定义数组的同时进行赋值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int[] arr = new int[]&#123;3,4,5&#125;;</span><br></pre></td></tr></table></figure></li>
+<li><p>通过普通for去赋值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int[] arr = new int[3];</span><br><span class="line">for(int i=0;i&lt;arr.length;i++)&#123;</span><br><span class="line">  arr[i] = (int)(Math.random()*100+1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+</blockquote>
+<h2 id="数组的遍历"><a href="#数组的遍历" class="headerlink" title="数组的遍历"></a>数组的遍历</h2><blockquote>
+<ol>
+<li><p>通过下标一一取值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(arr[下标]);</span><br></pre></td></tr></table></figure></li>
+<li><p>数组提供了属性length - 获取数组的长度</p>
+<p>通过普通for循环进行遍历</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for (int i = 0; i &lt; arr.length; i++) &#123;</span><br><span class="line">  System.out.println(arr[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>使用jdk5.x提供的增强for循环的语法</p>
+<p><strong>属于只读的for</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">int[] arr2 = &#123;3,4,5&#125;;</span><br><span class="line">for(元素类型 元素变量:数组变量名)&#123;</span><br><span class="line">  System.out.println(元素);</span><br><span class="line">&#125;</span><br><span class="line">for(int e:arr2)&#123;//此处的e不是代表下标,就是代表真正的元素</span><br><span class="line">   System.out.println(e);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+</blockquote>
+<blockquote>
+<ol>
+<li>通过java.util.Arrays数组工具类中提供的static String toString(数组对象)来遍历数组</li>
+</ol>
+</blockquote>
+<h2 id="拓展-数组的内存"><a href="#拓展-数组的内存" class="headerlink" title="拓展 - 数组的内存"></a>拓展 - 数组的内存</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">//通过new关键字在Jvm的堆中开辟新的空间01,用来存储这个对象&#123;10,20,30&#125;</span><br><span class="line">//然后将这个对象在堆空间中的内存地址赋值给了引用变量arr1[存储在栈]</span><br><span class="line">//&quot;结论&quot; - arr1的本质不是对象,只是一个引用变量而已</span><br><span class="line">//&quot;结论&quot; - 引用和对象之间的关系</span><br><span class="line">//        引用变量中存储的就是对象在堆空间中的内存地址</span><br><span class="line">//        &quot;气球理论&quot; - 一个引用变量在同一个时刻,只能指向一个对象</span><br><span class="line">//                 - &quot;一个对象可以在同一个时刻被多个引用指向&quot;</span><br><span class="line">int[] arr1 = new int[]&#123;10,20,30&#125;;</span><br><span class="line"></span><br><span class="line">//通过new关键字在Jvm的堆中开辟新的空间02,用来存储这个对象&#123;10,20,30&#125;</span><br><span class="line">int[] arr2 = &#123;10,20,30&#125;;</span><br><span class="line"></span><br><span class="line">arr1 = arr2;//arr1和arr2都是指向第二次创建出来的数组对象</span><br><span class="line">					  //原来第一次创建出来的对象就成为内存中的垃圾对象 - GC[垃圾回收线程进行回收,释放内存]</span><br><span class="line">					  //&quot;垃圾对象&quot; - 没有任何引用指向的对象</span><br></pre></td></tr></table></figure>
+
+<h2 id="拓展-方法的参数传递方式"><a href="#拓展-方法的参数传递方式" class="headerlink" title="拓展 - 方法的参数传递方式"></a>拓展 - 方法的参数传递方式</h2><blockquote>
+<ol>
+<li>基本类型采用值传递</li>
+<li>对象类型[引用类型]采用地址传递</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>总结:**Java中只有值传递,没有地址传递.**比较特殊的是String类型[虽然是一个对象类型,但是具备基本类型传递的特点]</p>
+</blockquote>
+<h1 id="数组工具类"><a href="#数组工具类" class="headerlink" title="数组工具类"></a>数组工具类</h1><blockquote>
+<p><strong>java.util.Arrays</strong></p>
+<ol>
+<li>static String toString(int[] arr);//输出数组</li>
+<li>static int[] copyOf(int[] original, int newLength) 复制指定的数组，用零截取或填充（如有必要），以便复制具有指定的长度。</li>
+<li>static void fill(boolean[] flag,boolean value);//给数组赋统一的值.</li>
+</ol>
+</blockquote>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2021/07/20/day03/" title="day03" target="_blank" rel="external">http://example.com/2021/07/20/day03/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/cofess" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/cofess" target="_blank"><span class="text-dark">xuzeyi</span><small class="ml-1x">程序猿</small></a></h3>
+        <div>苦逼代码猴</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2021/07/16/day02/" title="day02"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/cofess" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/cofess" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/iwebued" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.behance.net/cofess" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: 'cVYrBz4VdqGrTio50gTHvrfP-gzGzoHsz',
+    appKey: 'kDnqdyF9uFAgXkO8RCywohnM',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: true
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>
