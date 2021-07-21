@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>day05 | Hexo</title>
+  <meta name="description" content="Date api:java.util.Date[C] - 使用这个类之前,必须要导包import 这是java中提供的关于日期的处理,内置的对象类型.它本身是一个过时的类 里面提供了很多已经过时的方法. 目标:掌握这个类中提供的方法  api手册构造方法 作用:创建这个类的对象的方式    观察提供的方法是静态的方法还是非静态的方法. - api手册方法摘要 Date类中提供的方法几乎都是非静态的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="day05">
+<meta property="og:url" content="http://example.com/2021/07/21/day05/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Date api:java.util.Date[C] - 使用这个类之前,必须要导包import 这是java中提供的关于日期的处理,内置的对象类型.它本身是一个过时的类 里面提供了很多已经过时的方法. 目标:掌握这个类中提供的方法  api手册构造方法 作用:创建这个类的对象的方式    观察提供的方法是静态的方法还是非静态的方法. - api手册方法摘要 Date类中提供的方法几乎都是非静态的">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-07-21T12:51:00.000Z">
+<meta property="article:modified_time" content="2021-07-21T12:51:52.039Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="base">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://example.com/2021/07/21/day05/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/cofess" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">xuzeyi</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">程序猿</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Suzhou, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/cofess" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/cofess" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/iwebued" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.behance.net/cofess" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jqxx/">jqxx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tools/">tools</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/base/" rel="tag">base</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jqxx/" rel="tag">jqxx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tools/" rel="tag">tools</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/base/" style="font-size: 14px;">base</a> <a href="/tags/java/" style="font-size: 13px;">java</a> <a href="/tags/jqxx/" style="font-size: 13px;">jqxx</a> <a href="/tags/python/" style="font-size: 13px;">python</a> <a href="/tags/tools/" style="font-size: 13px;">tools</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">10</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/java/">java</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/07/21/day05/" class="title">day05</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-07-21T12:51:00.000Z" itemprop="datePublished">2021-07-21</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/java/">java</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/07/21/day04/" class="title">day04</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-07-21T12:39:33.000Z" itemprop="datePublished">2021-07-21</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/java/">java</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/07/20/day03/" class="title">day03</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-07-20T11:44:31.000Z" itemprop="datePublished">2021-07-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/java/">java</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/07/16/day02/" class="title">day02</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-07-16T11:42:19.000Z" itemprop="datePublished">2021-07-16</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/java/">java</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/07/15/day01/" class="title">day01</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-07-15T11:55:53.000Z" itemprop="datePublished">2021-07-15</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-day05" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      day05
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/07/21/day05/" class="article-date">
+	  <time datetime="2021-07-21T12:51:00.000Z" itemprop="datePublished">2021-07-21</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/java/">java</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/base/" rel="tag">base</a>
+  </span>
+
+
+        
+
+	<span class="article-read hidden-xs">
+    	<i class="icon icon-eye-fill" aria-hidden="true"></i>
+    	<span id="/2021/07/21/day05/" class="leancloud_visitors"  data-flag-title="day05">
+			<span class="leancloud-visitors-count">0</span>
+		</span>
+    </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/07/21/day05/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2.6k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 10(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="Date"><a href="#Date" class="headerlink" title="Date"></a>Date</h1><blockquote>
+<p>api:<strong>java.util</strong>.Date[C] - 使用这个类之前,必须要导包import</p>
+<p>这是java中提供的关于日期的处理,内置的对象类型.它本身是一个过时的类</p>
+<p>里面提供了很多已经过时的方法.</p>
+<p>目标:掌握这个类中提供的方法</p>
+</blockquote>
+<h2 id="api手册"><a href="#api手册" class="headerlink" title="api手册"></a>api手册</h2><h3 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h3><blockquote>
+<p>作用:创建这个类的对象的方式</p>
+</blockquote>
+<blockquote>
+<ol>
+<li><p>观察提供的方法是静态的方法还是非静态的方法. - <strong>api手册方法摘要</strong></p>
+<p>Date类中提供的方法几乎都是非静态的方法 - <strong>考虑如何构建这个对象?</strong></p>
+</li>
+<li><p>如何构建对象 - api手册的构造方法[面向对象]</p>
+<p>简单理解构造方法 - “方法”,构造方法通过new关键字调用</p>
+<ul>
+<li><p><strong>Date();//Date d = new Date();//获取当前系统时间</strong></p>
+</li>
+<li><p>Date(int year, int month, int date);//已经过时的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Date d2 = new Date(2021-1900,6,21);</span><br><span class="line">year - 1900 =&gt; 实际的year</span><br><span class="line">month的范围是[0,11]</span><br></pre></td></tr></table></figure></li>
+<li><p>Date(long date);//根据一个毫秒数来构建一个指定的日期类型 - 重新设置一个新的Date</p>
+<p>Java中日期类型Date对象是不支持运算的.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">计算三天之后的此时此刻</span><br><span class="line">long afterThreeTime = new Date().getTime()+3L*24*60*60*1000;</span><br><span class="line">Date afterThreeDate = new Date(afterThreeTime);</span><br><span class="line">System.out.println(afterThreeDate);</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+</blockquote>
+<h3 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h3><blockquote>
+<p>非静态方法 - 日期对象进行调用.</p>
+<ul>
+<li><p>long getTime();//返回当前日期的毫秒数的表现形式 - 获取当前系统时间的毫秒数.距离1970年1月1日</p>
+<p>1970年是计算机的元年</p>
+</li>
+<li><p>get/set方法 - 过时的</p>
+<ol>
+<li>void setYear(int year);// year-1900</li>
+<li>void setMonth(int month);//month的范围[0,11]</li>
+<li>void setDate(int date);//设置今天是几号</li>
+<li>void setHours(int hours);//设置小时</li>
+<li>void setMinutes(int minutes);//设置分钟</li>
+<li>void setSeconds(int seconds);//设置秒</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">package tech.aistar.day05;</span><br><span class="line"></span><br><span class="line">import java.util.Date;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 本类用来演示: java.util.Date 日期处理类</span><br><span class="line"> *</span><br><span class="line"> * @author: success</span><br><span class="line"> * @date: 2021/7/21 8:43 上午</span><br><span class="line"> */</span><br><span class="line">public class DateDemo &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        //1. 创建一个日期对象</span><br><span class="line">        //alter + enter 快速导包</span><br><span class="line">        Date d = new Date();//空参构造方法</span><br><span class="line"></span><br><span class="line">        //为什么此处输出的不是内存地址??? - OO - toString();</span><br><span class="line"></span><br><span class="line">        //Wed Jul 21 08:45:03 CST 2021</span><br><span class="line">        System.out.println(d);</span><br><span class="line"></span><br><span class="line">        //2. 重载的构造方法 - 过时的构造</span><br><span class="line">        Date d2 = new Date(2021-1900,6,21);</span><br><span class="line">        System.out.println(d2);</span><br><span class="line"></span><br><span class="line">        //3. 利用毫秒数来构建一个Date对象</span><br><span class="line">        Date d3 = new Date(1626829161216L);</span><br><span class="line">        System.out.println(d3);</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;====常用方法===&quot;);</span><br><span class="line">        //4.. 获取当前日期的毫秒数</span><br><span class="line">        //1秒 = 1000毫秒</span><br><span class="line">        long nowTime = d.getTime();</span><br><span class="line">        System.out.println(nowTime);//1626828910303</span><br><span class="line"></span><br><span class="line">        //练习-计算三天之后的此时此刻</span><br><span class="line">        long afterThreeTime = new Date().getTime()+3L*24*60*60*1000;</span><br><span class="line">        Date afterThreeDate = new Date(afterThreeTime);</span><br><span class="line">        System.out.println(afterThreeDate);</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;=====set设置/get获取======&quot;);</span><br><span class="line"></span><br><span class="line">        Date now = new Date();</span><br><span class="line"></span><br><span class="line">        now.setYear(2021-1900);//设置年份</span><br><span class="line">        now.setMonth(6);//设置月份[0,11]</span><br><span class="line">        now.setDate(25);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;now:&quot;+now);</span><br><span class="line">  </span><br><span class="line">        int year = now.getYear()+1900;//获取年份</span><br><span class="line">        System.out.println(&quot;year:&quot;+year);</span><br><span class="line">  </span><br><span class="line">        System.out.println(&quot;month:&quot;+now.getMonth());//获取月份</span><br><span class="line">  </span><br><span class="line">        System.out.println(&quot;date:&quot;+now.getDate());//获取几号</span><br><span class="line">  </span><br><span class="line">        System.out.println(&quot;day:&quot;+now.getDay()); // 周几,周1-周6[1-6],周日是0</span><br><span class="line">  </span><br><span class="line">        System.out.println(&quot;hours:&quot;+now.getHours());</span><br><span class="line">  </span><br><span class="line">        //void setTime(long date);</span><br><span class="line">        //构造 Date(long time);</span><br><span class="line">        Date dd = new Date();</span><br><span class="line">        dd.setTime(1726830007794L);</span><br><span class="line">        System.out.println(dd);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</blockquote>
+<h1 id="Calendar"><a href="#Calendar" class="headerlink" title="Calendar"></a>Calendar</h1><blockquote>
+<p>日历类 - 超纲的内容</p>
+<p>api - java.util.Calendar</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public abstract class Calendar</span><br><span class="line">abstract[修饰符]修饰的类是一个抽象类 - 不能够被new</span><br><span class="line"></span><br><span class="line">构建Calendar对象 - Calendar cal = new Calendar();//error</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h2 id="api手册-1"><a href="#api手册-1" class="headerlink" title="api手册"></a>api手册</h2><h3 id="常用方法-1"><a href="#常用方法-1" class="headerlink" title="常用方法"></a>常用方法</h3><blockquote>
+<ol>
+<li><p>static Calendar getInstance();</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//获取当前系统的日历对象</span><br><span class="line">Calendar cal = Calendar.getInstance();//底层使用到了简单工厂的设计模式[不需要了解暂时]</span><br></pre></td></tr></table></figure></li>
+</ol>
+</blockquote>
+<blockquote>
+<ol>
+<li><p>关于设置日历字段</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">void	set(int year, int month, int date)</span><br><span class="line">设置日历字段中的值 YEAR ， MONTH和 DAY_OF_MONTH 。</span><br><span class="line">  </span><br><span class="line">void	set(int year, int month, int date, int hourOfDay, int minute)</span><br><span class="line">设置日历字段中的值 YEAR ， MONTH ， DAY_OF_MONTH ， HOUR_OF_DAY和 MINUTE 。</span><br><span class="line">  </span><br><span class="line">void	set(int year, int month, int date, int hourOfDay, int minute, int second)</span><br><span class="line">设置字段中的值 YEAR ， MONTH ， DAY_OF_MONTH ， HOUR_OF_DAY ， MINUTE和 SECOND 。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Date -&gt; Calendar </span><br><span class="line">void setTime(Date date);</span><br></pre></td></tr></table></figure></li>
+<li><p>单独针对单个字段一一进行赋值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">void set(int field,int value);</span><br><span class="line"></span><br><span class="line">只要看到field</span><br><span class="line">//公开的静态的常量属性</span><br><span class="line">public static final int YEAR = 1;</span><br></pre></td></tr></table></figure></li>
+<li><p>关于获取日历字段</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Date getTime();//获取日历信息中关于日期部分的信息 - Calendar转成Date类型</span><br><span class="line">   </span><br><span class="line">int get(int field);//关于获取日历指定字段的值</span><br></pre></td></tr></table></figure></li>
+</ol>
+</blockquote>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><blockquote>
+<ol>
+<li><p>毫秒数 -&gt; Date</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a. java.util.Date中提供了构造方法Date(long time);</span><br><span class="line">b. 上述类void setTime(long time);</span><br></pre></td></tr></table></figure></li>
+<li><p>Date -&gt; 毫秒数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">该类中long getTime();</span><br></pre></td></tr></table></figure></li>
+<li><p>Calendar -&gt; Date</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Calendar类中提供了Date getTime();</span><br></pre></td></tr></table></figure></li>
+<li><p>Date -&gt; Calendar</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Calendar类中void setTime(Date date);</span><br></pre></td></tr></table></figure></li>
+</ol>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">package tech.aistar.day05;</span><br><span class="line"></span><br><span class="line">import java.util.Calendar;</span><br><span class="line">import java.util.Date;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 本类用来演示: 日历类java.util.Calendar</span><br><span class="line"> *</span><br><span class="line"> * @author: success</span><br><span class="line"> * @date: 2021/7/21 9:30 上午</span><br><span class="line"> */</span><br><span class="line">public class CalendarDemo &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line"></span><br><span class="line">        //超纲 - abstract是修饰符 - 修饰类 - 抽象的类</span><br><span class="line">        //特点 - 不能够被new[不能够被实例化,具体化]</span><br><span class="line">        //Calendar cal = new Calendar();//error</span><br><span class="line"></span><br><span class="line">        Calendar cal = Calendar.getInstance();</span><br><span class="line">        //System.out.println(cal);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        //统一设置值</span><br><span class="line">        cal.set(2020,6,21);</span><br><span class="line"></span><br><span class="line">        //Calendar -&gt; Date</span><br><span class="line">        Date now = cal.getTime();</span><br><span class="line"></span><br><span class="line">        System.out.println(now);</span><br><span class="line"></span><br><span class="line">        //Date -&gt; Calendar</span><br><span class="line">        Date d = new Date(17818237347L);</span><br><span class="line">        cal.setTime(d);</span><br><span class="line"></span><br><span class="line">        System.out.println(cal.get(1));</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;====单个字段一一赋值====&quot;);</span><br><span class="line">        //void set(int field,int value);</span><br><span class="line"></span><br><span class="line">        Calendar cd = Calendar.getInstance();</span><br><span class="line"></span><br><span class="line">        //通过字面量直接进行设置 - 可读性比较差</span><br><span class="line"></span><br><span class="line">        //获取Calendar中提供的一些公开的静态的常量属性</span><br><span class="line"></span><br><span class="line">        //System.out.println();</span><br><span class="line"></span><br><span class="line">        //常量的好处 - 提供程序的可读性</span><br><span class="line">        cd.set(Calendar.YEAR,2021);</span><br><span class="line">        cd.set(Calendar.MONTH,6);</span><br><span class="line">        cd.set(Calendar.DAY_OF_MONTH,24);</span><br><span class="line"></span><br><span class="line">        System.out.println(cd.getTime());//Calendar-&gt;Date</span><br><span class="line"></span><br><span class="line">        int year = cd.get(Calendar.YEAR);</span><br><span class="line">        int month = cd.get(Calendar.MONTH)+1;</span><br><span class="line">        int day = cd.get(Calendar.DAY_OF_MONTH);</span><br><span class="line">        System.out.println(&quot;year:&quot;+year);</span><br><span class="line">        System.out.println(&quot;month:&quot;+month);</span><br><span class="line">        System.out.println(&quot;day:&quot;+day);</span><br><span class="line"></span><br><span class="line">        //获取周几</span><br><span class="line">        int week = cd.get(Calendar.DAY_OF_WEEK);</span><br><span class="line">        System.out.println(&quot;week:&quot;+week);//周日~周六,[1~7]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="获取键盘键盘输入"><a href="#获取键盘键盘输入" class="headerlink" title="获取键盘键盘输入"></a>获取键盘键盘输入</h1><blockquote>
+<ol>
+<li><p>java.util.Scanner键盘类</p>
+</li>
+<li><p>如何构建这个Scanner对象</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Scanner sc = new Scanner(System.in);</span><br></pre></td></tr></table></figure></li>
+<li><p>方法</p>
+<p>3-1. int nextInt();//只能获取整数</p>
+<p>3-2. double nextDouble();//获取小数</p>
+<p>3-3. String nextLine();//获取字符串</p>
+</li>
+<li><p>注意点:nextLine不要和nextInt或者nextDouble混用.</p>
+</li>
+</ol>
+</blockquote>
+<h1 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h1><blockquote>
+<ol>
+<li><p>java语言属于面向对象的语言</p>
+</li>
+<li><p>面向对象本身不是一门具体的技术,符合人类思维的思想.</p>
+</li>
+<li><p>宗旨:把一个复杂的大型的业务,利用面向对象的思想进行面向对象的分析,</p>
+<p>接着面向对象的设计,最终进行面向对象的编程.</p>
+</li>
+<li><p><strong>对象是数据在内存中的”载体”</strong></p>
+</li>
+</ol>
+</blockquote>
+<h2 id="重新认识类和对象"><a href="#重新认识类和对象" class="headerlink" title="重新认识类和对象"></a>重新认识类和对象</h2><blockquote>
+<ol>
+<li><p>类是抽象的概念,对象是具体的概念</p>
+</li>
+<li><p>类是构建对象的蓝图/模板,对象是类的具体的实例化[表现]</p>
+</li>
+<li><p>类是用来描述对象的.</p>
+</li>
+<li><p>比如:</p>
+<p> 类:水果 交通工具 学生</p>
+<p>对象:榴莲 飞机 小三</p>
+</li>
+<li><p>比如:</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>username</th>
+<th>age</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>100</td>
+<td>admin</td>
+<td>18</td>
+</tr>
+<tr>
+<td>101</td>
+<td>tom</td>
+<td>17</td>
+</tr>
+</tbody></table>
+</li>
+</ol>
+</blockquote>
+<h2 id="面向对象的思想"><a href="#面向对象的思想" class="headerlink" title="面向对象的思想"></a>面向对象的思想</h2><blockquote>
+<p>核心:”一切皆对象”</p>
+<p>①分析出系统中业务的关键对象 - <strong>“找对象”</strong> - 未来页面上显示的数据</p>
+<p>②找出对象的**”属性”** - “对象拥有什么”</p>
+<p>③分析出对象的”方法” - “对象可以干什么,对象的功能”</p>
+<p>④找出对象与对象之间的关系.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1:1 - 一个丈夫对应一个妻子,一个妻子对应一个丈夫.</span><br><span class="line">  </span><br><span class="line">1:N - 一个客户拥有多个订单.一个订单只能属于一个客户 - 70%</span><br><span class="line"></span><br><span class="line">N:N - 一个学生可以选择多门课程,一门课程可以被多个学生来选择.</span><br><span class="line">  </span><br><span class="line">自关联 - 自己关联自己.</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>⑤最后一步才会去考虑具体怎么编码实现.可能也会考虑数据结构或者算法.</p>
+</blockquote>
+<blockquote>
+<p>“相亲业务” -</p>
+<ol>
+<li>媒婆帮你找一个”对象”</li>
+<li>你要查看”对象”的属性</li>
+<li>询问”对象”的功能</li>
+<li>分析你和”对象”是否来道🌩</li>
+<li>考虑 - 追 - 彩礼 - 结婚 - 具体怎么实现!</li>
+</ol>
+</blockquote>
+<h2 id="面向过程的思想"><a href="#面向过程的思想" class="headerlink" title="面向过程的思想"></a>面向过程的思想</h2><blockquote>
+<p>C是典型的面向过程的思想</p>
+<p>①优先考虑的就是算法和数据结构 - 考虑的就是具体怎么实现.</p>
+</blockquote>
+<h2 id="实体类"><a href="#实体类" class="headerlink" title="实体类"></a>实体类</h2><blockquote>
+<p>实体类就是用来描述对象的.</p>
+<p>实体类中包含<strong>属性,构造方法,getter/setter方法,toString方法.</strong></p>
+</blockquote>
+<h2 id="如何定义属性"><a href="#如何定义属性" class="headerlink" title="如何定义属性"></a>如何定义属性</h2><blockquote>
+<p>语法:</p>
+<p>修饰符 数据类型 属性名 [=初始值];</p>
+</blockquote>
+<h3 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h3><blockquote>
+<p>public 公开的</p>
+<p>private 私有的</p>
+</blockquote>
+<h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><blockquote>
+<ol>
+<li>八种基本数据类型</li>
+<li>内置对象类型以及自定义对象类型.</li>
+</ol>
+</blockquote>
+<h3 id="属性名"><a href="#属性名" class="headerlink" title="属性名"></a>属性名</h3><blockquote>
+<p>参考变量的命名 - “小驼峰”</p>
+</blockquote>
+<h2 id="三大特征-封装性"><a href="#三大特征-封装性" class="headerlink" title="三大特征 - 封装性"></a>三大特征 - 封装性</h2><blockquote>
+<p>封装 - Encapsulation - 屏蔽底层的细节,数据提供保护的机制</p>
+</blockquote>
+<blockquote>
+<ol>
+<li><p>属性私有化</p>
+</li>
+<li><p>提供getter/setter方法</p>
+<p>setter方法 - set属性名[首字母变大写] - 推荐的命名规则</p>
+<p>setter方法这种设置值的好处</p>
+<p>2-1. setter方法中是可以进行参数有效性判断的.</p>
+<p>2-2. 业务需求改变了 - 属性名称改变了,使用到这个属性的具体的地方都要发生改变 - “可维护性”</p>
+<p>2-3. 并不是所有的属性的值都是通过那么太简单的计算得到的.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">public class Orders&#123;</span><br><span class="line">  private int id;</span><br><span class="line">  </span><br><span class="line">  private double price;</span><br><span class="line">  </span><br><span class="line">  private int count;</span><br><span class="line">  </span><br><span class="line">  private double total;</span><br><span class="line">  </span><br><span class="line">  //getter/setter - 提供好了</span><br><span class="line">  </span><br><span class="line">  public double getTotal()&#123;</span><br><span class="line">    double result = this.price * this.count;</span><br><span class="line">    return result;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Orders o = new Orders();</span><br><span class="line">o.setPrice(100.0);</span><br><span class="line">o.setCount(10);</span><br><span class="line"></span><br><span class="line">//o.setTotal(o.getPrice()*o.getCount());</span><br><span class="line">System.out.println(o.getTotal());</span><br></pre></td></tr></table></figure>
+
+<p>2-4. 并不是所有的属性都需要对外进行公开的.</p>
+</li>
+</ol>
+</blockquote>
+<h2 id="this关键字"><a href="#this关键字" class="headerlink" title="this关键字"></a>this关键字</h2><blockquote>
+<ol>
+<li>作用1 - 当前对象,区分方法中参数和实体类中的定义的属性 - 当两者同名的时候.</li>
+</ol>
+</blockquote>
+<h2 id="toString方法"><a href="#toString方法" class="headerlink" title="toString方法"></a>toString方法</h2><blockquote>
+<ol>
+<li><p>当我们直接输出对象的时候,默认一定会去调用toString方法 - 如果这个对象是null,那么不会调用toString方法的</p>
+</li>
+<li><p>当自定义的实体类中没有手动提供toString方法,那么这个对象会自动去调用java.lang.Object类中的toString方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public String toString() &#123;</span><br><span class="line">  return getClass().getName() + &quot;@&quot; + Integer.toHexString(hashCode());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>java.lang.Object - 它是所有的类的根类,基类,超类,父类.</p>
+<p>如果某个类没有明确指定它的父类,那么这个类默认会直接继承java.lang.Object类</p>
+<p>“User类是Object类的儿子” - 规定 - “<strong>子类可以调用父类中所有的公开的成员</strong>“</p>
+</li>
+</ol>
+</blockquote>
+<blockquote>
+<ol>
+<li><p>Object类中提供的toString方法只能用来返回对象的内存地址 - 不满足实际的打印需求</p>
+<p>所以需要在实体类中重新重写这个toString方法.</p>
+</li>
+<li><p>当子类User类一旦重写了toString方法之后,那么就会采取”就近原则”,直接调用自己重写</p>
+<p>之后的toString方法.</p>
+</li>
+</ol>
+</blockquote>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2021/07/21/day05/" title="day05" target="_blank" rel="external">http://example.com/2021/07/21/day05/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/cofess" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/cofess" target="_blank"><span class="text-dark">xuzeyi</span><small class="ml-1x">程序猿</small></a></h3>
+        <div>苦逼代码猴</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2021/07/21/day04/" title="day04"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/cofess" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/cofess" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/iwebued" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.behance.net/cofess" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: 'cVYrBz4VdqGrTio50gTHvrfP-gzGzoHsz',
+    appKey: 'kDnqdyF9uFAgXkO8RCywohnM',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: true
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>
