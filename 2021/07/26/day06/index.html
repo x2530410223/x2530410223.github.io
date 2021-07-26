@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>day06 | Hexo</title>
+  <meta name="description" content="OO练习业务类和实体类合二为一 居然将业务方法放在了实体类中 - 违背了设计原则 - “单一职责原则”.不要给一个类增加太多的负担 实体类 - 主要是描述对象,数据在内存中的载体 - 注重的应该是数据的存储 业务类 - 存放的是业务方法 - 在于操作这些数据   员工类[编号id,姓名name,工资salary] 业务方法[crud增删改查]放在实体类中 - 不合理的. 1234567891011">
+<meta property="og:type" content="article">
+<meta property="og:title" content="day06">
+<meta property="og:url" content="http://example.com/2021/07/26/day06/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="OO练习业务类和实体类合二为一 居然将业务方法放在了实体类中 - 违背了设计原则 - “单一职责原则”.不要给一个类增加太多的负担 实体类 - 主要是描述对象,数据在内存中的载体 - 注重的应该是数据的存储 业务类 - 存放的是业务方法 - 在于操作这些数据   员工类[编号id,姓名name,工资salary] 业务方法[crud增删改查]放在实体类中 - 不合理的. 1234567891011">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-07-26T03:26:49.000Z">
+<meta property="article:modified_time" content="2021-07-26T03:28:49.698Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Object">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://example.com/2021/07/26/day06/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/cofess" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">xuzeyi</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">程序猿</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Suzhou, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/cofess" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/cofess" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/iwebued" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.behance.net/cofess" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jqxx/">jqxx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tools/">tools</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Object/" rel="tag">Object</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/base/" rel="tag">base</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jqxx/" rel="tag">jqxx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tools/" rel="tag">tools</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/Object/" style="font-size: 13px;">Object</a> <a href="/tags/base/" style="font-size: 14px;">base</a> <a href="/tags/java/" style="font-size: 13px;">java</a> <a href="/tags/jqxx/" style="font-size: 13px;">jqxx</a> <a href="/tags/python/" style="font-size: 13px;">python</a> <a href="/tags/tools/" style="font-size: 13px;">tools</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">11</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/java/">java</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/07/26/day06/" class="title">day06</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-07-26T03:26:49.000Z" itemprop="datePublished">2021-07-26</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/java/">java</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/07/21/day05/" class="title">day05</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-07-21T12:51:00.000Z" itemprop="datePublished">2021-07-21</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/java/">java</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/07/21/day04/" class="title">day04</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-07-21T12:39:33.000Z" itemprop="datePublished">2021-07-21</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/java/">java</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/07/20/day03/" class="title">day03</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-07-20T11:44:31.000Z" itemprop="datePublished">2021-07-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/java/">java</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/07/16/day02/" class="title">day02</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-07-16T11:42:19.000Z" itemprop="datePublished">2021-07-16</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-day06" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      day06
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/07/26/day06/" class="article-date">
+	  <time datetime="2021-07-26T03:26:49.000Z" itemprop="datePublished">2021-07-26</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/java/">java</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/Object/" rel="tag">Object</a>
+  </span>
+
+
+        
+
+	<span class="article-read hidden-xs">
+    	<i class="icon icon-eye-fill" aria-hidden="true"></i>
+    	<span id="/2021/07/26/day06/" class="leancloud_visitors"  data-flag-title="day06">
+			<span class="leancloud-visitors-count">0</span>
+		</span>
+    </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/07/26/day06/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1.9k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 6(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="OO练习"><a href="#OO练习" class="headerlink" title="OO练习"></a>OO练习</h1><h2 id="业务类和实体类合二为一"><a href="#业务类和实体类合二为一" class="headerlink" title="业务类和实体类合二为一"></a>业务类和实体类合二为一</h2><blockquote>
+<p>居然将业务方法放在了实体类中 - <strong>违背了设计原则 - “单一职责原则”.不要给一个类增加太多的负担</strong></p>
+<p>实体类 - 主要是描述对象,数据在内存中的载体 - 注重的应该是数据的<strong>存储</strong></p>
+<p>业务类 - 存放的是业务方法 - 在于<strong>操作</strong>这些数据</p>
+</blockquote>
+<blockquote>
+<p>员工类[编号id,姓名name,工资salary]</p>
+<p>业务方法[crud增删改查]放在实体类中 - 不合理的.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Emp</span></span>&#123;     </span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">private</span> String name;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">double</span> salary;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//一个上司拥有多个下属</span></span><br><span class="line">  <span class="comment">//一个下属对应一个上司</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">//自关联</span></span><br><span class="line">  <span class="keyword">private</span> Emp[] emps;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//构造,getter/setter,toString</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">//给上司添加一个下属</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addEmp</span><span class="params">(Emp e)</span></span>&#123;</span><br><span class="line">    <span class="comment">//数组的扩容Arrays.copyOf(数组对象,新的长度);</span></span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//输出下属的个数</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printEmpCount</span><span class="params">()</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//输出某个上司所有的下属信息</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printEmp</span><span class="params">()</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//TestEmp.java</span></span><br><span class="line">Emp boss = <span class="keyword">new</span> Emp(<span class="number">1</span>,<span class="string">&quot;boss&quot;</span>,<span class="number">100.0</span>,<span class="keyword">new</span> Emp[<span class="number">0</span>]);</span><br><span class="line"></span><br><span class="line">Emp e1 = <span class="keyword">new</span> Emp(<span class="number">1</span>,<span class="string">&quot;boss&quot;</span>,<span class="number">100.0</span>,<span class="keyword">null</span>);</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h2 id="业务类和实体类分开"><a href="#业务类和实体类分开" class="headerlink" title="业务类和实体类分开"></a>业务类和实体类分开</h2><blockquote>
+<p>业务方法应该专门抽取出来放到一个业务类中.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Account</span></span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">double</span> balance;<span class="comment">//余额</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AccountBiz</span></span>&#123;</span><br><span class="line">  <span class="comment">//转钱</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test01</span><span class="params">(Account acc1,Account acc2,<span class="keyword">double</span> money)</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">  <span class="comment">//存钱</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h1 id="继承Inheritance"><a href="#继承Inheritance" class="headerlink" title="继承Inheritance"></a>继承Inheritance</h1><blockquote>
+<p>将多个具有共同特点的对象抽象出一个”父类”.</p>
+<p><strong>父类中存储的是各个子类共同的特点[属性]或者功能[方法]</strong></p>
+<p>继承的好处 - 提高了代码的复用性.使用多态的前提,为了代码的可拓展性.</p>
+<p>继承的缺点 - 增加了类与类之间的关系.不太符合软件的设计原则”高内聚,低耦合”</p>
+<p> 低耦合 - 模块与模块之间/类与类之间的关系应该越弱越好 - 没有关系</p>
+<p> 高内聚 - 单个模块/类能够独立完成某个业务功能的能力比较强.</p>
+<p> 实际开发中,可以采用设计原则**”合成复用原则”** - 来替代继承的使用.</p>
+<p>使用extends关键字来表示某个类继承某个父类</p>
+<p>比如:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span></span>&#123;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br><span class="line">B 是 A的子类,A是B的父类,基类,超类.</span><br><span class="line"><span class="number">1.</span> A的父类就是java.lang.Object - 当某个类如果没有明确指定它的父类是谁,那么这个类默认继承Object</span><br><span class="line"><span class="number">2.</span> 子类是可以访问到父类中所有的非私有的成员</span><br><span class="line"><span class="number">3.</span> java的类只支持单继承.一个类只能继承一个父类.避免出现网状结构,保证类的层次性.</span><br><span class="line">   java中的接口是支持多重继承.一个接口可以继承多个接口.</span><br><span class="line"><span class="number">4.</span> 继承具有传播性.C extends B    B extends A</span><br><span class="line">   C间接继承于A,C也是可以访问到A中的所有的非私有的成员</span><br><span class="line"><span class="number">5.</span> 不要滥用继承,前提B is A</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h2 id="super关键字"><a href="#super关键字" class="headerlink" title="super关键字"></a>super关键字</h2><blockquote>
+<p>必须放在构造方法的首行</p>
+</blockquote>
+<blockquote>
+<ol>
+<li><p>调用父类的构造</p>
+<p>在子类的构造中,如果没有出现任何的super语句.那么系统默认会给定super(); - 调用父类的空参构造</p>
+</li>
+<li><p>当在子类中调用了一个和父类中同名的成员的时候,需要通过super关键字来加以区分[强制调用父类中那个同名的成员]</p>
+</li>
+</ol>
+</blockquote>
+<h1 id="多态-polymorphism"><a href="#多态-polymorphism" class="headerlink" title="多态 - polymorphism"></a>多态 - polymorphism</h1><blockquote>
+<p>对象有多种形态.发生前提是具有<strong>继承关系</strong></p>
+</blockquote>
+<blockquote>
+<p>相同的消息可能会送给多个不同的类别之<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%AF%B9%E8%B1%A1">对象</a>，</p>
+<p>而系统可依据对象所属类别，引发对应类别的方法，而有不同的行为。简单来说，所谓多态意指相同的消息给予不同的对象会引发不同的动作。</p>
+</blockquote>
+<h2 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h2><blockquote>
+<p>进行类型的判断,只有为true的时候,才能够进行类型的转换[强制,向下]</p>
+<p>如果没有进行类型的判断,随便进行了一个强制类型转换,可能会抛出java.lang.ClassCastException类型转换失败异常</p>
+</blockquote>
+<h2 id="三种场景应用"><a href="#三种场景应用" class="headerlink" title="三种场景应用"></a>三种场景应用</h2><blockquote>
+<p>面向父类编程</p>
+</blockquote>
+<blockquote>
+<ol>
+<li><p>对象的编译时类型写成父类,对象的运行时类型写成子类</p>
+<p><strong>编译时类型 对象名 = new 运行时类型();</strong></p>
+<p>对象的编译时类型决定了对象的访问能力 - “对象名只能访问到编译时类型中定义的成员”</p>
+<p>对象的运行时类型决定了对象的行为能力 - “子类中如果一旦重写了父类中的方法,那么运行期间调用的是子类重写之后的方法”</p>
+</li>
+<li><p>方法的参数类型写成父类,调用这个方法的时候,可以传入这个父类的任意一个子类对象</p>
+</li>
+<li><p>方法的返回类型写成父类,方法的返回结果可以是这个父类的任意一个子类对象 - “简单工厂设计模式”</p>
+</li>
+</ol>
+</blockquote>
+<h1 id="final关键字"><a href="#final关键字" class="headerlink" title="final关键字"></a>final关键字</h1><blockquote>
+<p>不可更改,不可变</p>
+</blockquote>
+<blockquote>
+<ol>
+<li>final修饰的变量/属性 - 不能够重新赋值</li>
+<li>final修饰的类 - 不能够被继承</li>
+<li>final修饰的方法不能够被重写.</li>
+</ol>
+</blockquote>
+<h1 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h1><blockquote>
+<p>访问修饰符 - 决定了这个成员可以在哪里能够被访问.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>所有包</th>
+<th>子类[可以不同,同包]</th>
+<th>同包</th>
+<th>本类</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public 公共的,公开的</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>protected 受保护的</td>
+<td>×</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>默认的</td>
+<td>×</td>
+<td>×</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>private 私有的</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+<td>√</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>安全级别:private&gt;默认的&gt;protected&gt;public</strong></p>
+<p>可见区域:public&gt;protected&gt;默认的&gt;private</p>
+</blockquote>
+<h1 id="方法的重写"><a href="#方法的重写" class="headerlink" title="方法的重写"></a>方法的重写</h1><blockquote>
+<p>方法的重载和方法的重写有什么区别?</p>
+<p>特点:</p>
+<p>发生的前提是要有继承关系</p>
+<ol>
+<li>重写有个特殊的场景 - 子类重写之后的方法的修饰符,返回类型,方法名,参数列表和父类中高度保持一致 - <strong>重构</strong></li>
+<li>子类重写的方法的访问修饰符可以小于或者等于父类</li>
+<li>方法名必须要一样.</li>
+<li>子类重写的方法的返回类型可以小于[可以是父类方法的返回类型的子类类型]或者等于父类的那个方法</li>
+<li>参数列表必须要高度保持一致</li>
+</ol>
+</blockquote>
+<h1 id="作业"><a href="#作业" class="headerlink" title="作业"></a>作业</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>设计一个形状类Shape,方法:求周长和求面积</span><br><span class="line">  形状类的子类:Rect(矩形),Circle(圆形)</span><br><span class="line">  Rect类的子类:Square(正方形)</span><br><span class="line">  不同的子类会有不同的计算周长和面积的方法</span><br><span class="line">  创建三个不同的形状对象</span><br><span class="line">  分别打印出每个对象的周长和面积</span><br><span class="line">  [girth() area() -&gt; 放在父类]</span><br><span class="line">  [每个子类需要重写这些方法!] - 不要想太多应用场景,语法!</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="number">2.</span>某公司的雇员分为以下若干类：</span><br><span class="line">Employee：这是所有员工总的父类，</span><br><span class="line">属性：员工的姓名,员工的生日Date。</span><br><span class="line">方法：getSalary(<span class="keyword">int</span> month) </span><br><span class="line">根据参数月份来确定工资，</span><br><span class="line">如果该月员工过生日，则公司会额外奖励<span class="number">100</span>元。</span><br><span class="line"></span><br><span class="line">SalariedEmployee：</span><br><span class="line">Employee的子类，拿固定工资的员工。属性：月薪</span><br><span class="line"></span><br><span class="line">HourlyEmployee：</span><br><span class="line">Employee的子类，按小时拿工资的员工，</span><br><span class="line">属性：每小时的工资、每月工作的小时数</span><br><span class="line">每月工作超出<span class="number">160</span>小时的部分按照<span class="number">1.5</span>倍工资发放。</span><br><span class="line"></span><br><span class="line">SalesEmployee：</span><br><span class="line">Employee的子类，销售人员，工资由月销售额和提成率决定。</span><br><span class="line">属性：月销售额、提成率</span><br><span class="line"></span><br><span class="line">BasedPlusSalesEmployee：</span><br><span class="line">SalesEmployee的子类，有固定底薪的销售人员，</span><br><span class="line">工资由底薪加上销售提成部分。属性：底薪。</span><br><span class="line"></span><br><span class="line">写一个函数，打印出某月每个员工的工资数额。</span><br><span class="line"></span><br><span class="line">注意：要求把每个类都做成完全封装，不允许非私有化属性。</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2021/07/26/day06/" title="day06" target="_blank" rel="external">http://example.com/2021/07/26/day06/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/cofess" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/cofess" target="_blank"><span class="text-dark">xuzeyi</span><small class="ml-1x">程序猿</small></a></h3>
+        <div>苦逼代码猴</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2021/07/21/day05/" title="day05"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/cofess" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/cofess" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/iwebued" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.behance.net/cofess" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: 'cVYrBz4VdqGrTio50gTHvrfP-gzGzoHsz',
+    appKey: 'kDnqdyF9uFAgXkO8RCywohnM',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: true
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>
